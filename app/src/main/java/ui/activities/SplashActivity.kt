@@ -1,25 +1,28 @@
 package ui.activities
 
+import android.app.Activity
 import android.arch.lifecycle.Lifecycle.Event.ON_CREATE
 import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import android.view.Window
+import android.widget.ImageView.ScaleType.FIT_XY
 import com.example.josephmagara.todoapp.R.layout
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import java.util.concurrent.TimeUnit.MILLISECONDS
+import kotlinx.android.synthetic.main.activity_splash.backgroundImageView
+import java.util.concurrent.TimeUnit.SECONDS
 
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : Activity() {
 
   @OnLifecycleEvent(ON_CREATE)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     requestWindowFeature(Window.FEATURE_NO_TITLE)
     setContentView(layout.activity_splash)
-    Observable.timer(2000, MILLISECONDS).observeOn(
+    backgroundImageView.scaleType = FIT_XY
+    Observable.timer(5, SECONDS).observeOn(
         Schedulers.io()).subscribe { goToListActivity() }
   }
 
