@@ -27,6 +27,7 @@
         android:inputType="textNoSuggestions"
         android:textColor="@color/black"
         android:textCursorDrawable="@null"
+        android:imeOptions="actionDone"
         />
   </android.support.v7.widget.CardView>
   <android.support.v4.widget.SwipeRefreshLayout
