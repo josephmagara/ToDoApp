@@ -29,5 +29,10 @@
         />
   </android.support.v7.widget.CardView>
 
-
+  <android.support.v7.widget.RecyclerView
+      android:id="@+id/toDoRecycler"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_margin="@dimen/to_do_recycler_margin"
+      />
 </LinearLayout>
