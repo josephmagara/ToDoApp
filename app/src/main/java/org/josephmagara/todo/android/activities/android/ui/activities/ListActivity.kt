@@ -1,4 +1,4 @@
-package org.josephmagara.todo.android.activities.android.ui
+package org.josephmagara.todo.android.activities.android.ui.activities
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity

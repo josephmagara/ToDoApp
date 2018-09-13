@@ -1,4 +1,4 @@
-package org.josephmagara.todo.android.activities.android.ui
+package org.josephmagara.todo.android.activities.android.ui.activities
 
 import android.app.Activity
 import android.arch.lifecycle.Lifecycle.Event.ON_CREATE
