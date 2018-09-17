@@ -3,21 +3,24 @@ package org.josephmagara.todo.android.activities.android.data.models
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.persistence.room.Entity
+import android.text.format.DateUtils
+import java.util.Date
 
 @Entity(tableName = "user_to_do_table")
-data class UserToDo() : ViewModel() {
+data class UserToDo(private var ignore: String) : ViewModel() {
 
 
-  private var title = title
-  private var subtasks = subtasks
+  var title : String = ""
+  private var dateCreated: Date? = null
+  private var subtasks: MutableLiveData<MutableList<SubTask>> = MutableLiveData()
   private var todoCompleted: Boolean = false
   private var userHasDecidedToComplete: Boolean = false //The user has decided that the task is complete even if the subtasks aren't
-  private val completed: Boolean
+  val completed: Boolean
     get(){
 
-    if (userHasDecidedToComplete) return todoCompleted
+    return todoCompleted
 
-      subtasks.let {
+      /*subtasks.let {
         if (subtasks.value?.size == 0) return todoCompleted
         for (task in subtasks.value!!){
           if (!task.completed){
@@ -26,12 +29,13 @@ data class UserToDo() : ViewModel() {
         }
       }
 
-    return todoCompleted
+    return todoCompleted*/
   }
 
-  constructor(passedTitle: String, passedSubtasks: MutableLiveData<MutableList<SubTask>>) : this() {
+  constructor(passedTitle: String, passedSubtasks: MutableLiveData<MutableList<SubTask>>, dateCreated: Date) : this("") {
     this.title = passedTitle
     this.subtasks = passedSubtasks
+    this.dateCreated = dateCreated
   }
 
   fun setUserHasDecidedToComplete(isComplete: Boolean){
@@ -42,4 +46,7 @@ data class UserToDo() : ViewModel() {
     todoCompleted = isComplete
   }
 
+  fun getFormattedDateString(): String{
+    return dateCreated.toString()
+  }
 }

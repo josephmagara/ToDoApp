@@ -12,7 +12,7 @@ class DbManager(private val context: Context){
   }
 
   private fun getDB() : AppDatabase{
-    return Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "")
+    return Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "").build()
   }
 
   fun getAllUserToDo(){
