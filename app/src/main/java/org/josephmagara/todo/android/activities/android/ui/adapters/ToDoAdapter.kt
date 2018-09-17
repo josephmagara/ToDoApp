@@ -18,6 +18,8 @@ class ToDoAdapter(private val context: Context, private var list:ArrayList<UserT
     holder.title.text = item.title
     holder.checkbox.isChecked = item.completed
     holder.dateTextView.text = item.getFormattedDateString()
+
+    holder.checkbox.setOnCheckedChangeListener { buttonView, isChecked ->  item.setUserHasDecidedToComplete(true)}
   }
 
 
