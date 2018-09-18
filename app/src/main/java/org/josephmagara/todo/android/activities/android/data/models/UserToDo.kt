@@ -12,7 +12,7 @@ data class UserToDo(private var ignore: String) : ViewModel() {
   private var dateCreated = Date()
   private var dateDue = Date()
   private var dateModified = Date()
-  @Embedded(prefix = "USR_")
+  @Embedded(prefix = "usr_subtask_")
   private var subTasks: MutableLiveData<MutableList<SubTask>> = MutableLiveData()
 
   var title : String = ""
