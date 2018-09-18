@@ -13,28 +13,31 @@ import android.widget.TextView
 import com.example.josephmagara.todoapp.R
 import kotlinx.android.synthetic.main.activity_list.textInput
 import kotlinx.android.synthetic.main.activity_list.toDoRecycler
+import org.josephmagara.todo.android.activities.android.data.interfaces.ListDisplayImpl
 import org.josephmagara.todo.android.activities.android.data.models.SubTask
 import org.josephmagara.todo.android.activities.android.data.models.UserToDo
+import org.josephmagara.todo.android.activities.android.data.presenters.ToDoPresenter
 import org.josephmagara.todo.android.activities.android.ui.adapters.ToDoAdapter
 import java.util.Date
 
 @Suppress("UNUSED_EXPRESSION")
-class ListActivity : AppCompatActivity(), LifecycleObserver {
+class ListActivity : AppCompatActivity(), LifecycleObserver, ListDisplayImpl {
 
-  private var list: ArrayList<UserToDo> = arrayListOf()
+
   private var adapter: ToDoAdapter? = null
-
+  private var presenter : ToDoPresenter? = null
 
   @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_list)
+    presenter = ToDoPresenter(this)
     setupAdapter()
     bindView()
   }
 
   private fun setupAdapter() {
-    adapter = ToDoAdapter(this, list)
+    adapter = presenter?.let { ToDoAdapter(this, it.getAllToDos(), it) }
   }
 
   private fun bindView() {
@@ -66,7 +69,10 @@ class ListActivity : AppCompatActivity(), LifecycleObserver {
   }
 
   private fun addToDo(td: UserToDo){
-    list.add(td)
+    presenter?.addTodo(td)
+  }
+
+  override fun notifyAdapterOfDataChange() {
     adapter?.notifyDataSetChanged()
   }
 }

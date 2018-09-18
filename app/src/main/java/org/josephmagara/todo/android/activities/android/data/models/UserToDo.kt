@@ -14,7 +14,7 @@ data class UserToDo(private var ignore: String) : ViewModel() {
   private var subtasks: MutableLiveData<MutableList<SubTask>> = MutableLiveData()
   private var todoCompleted: Boolean = false
   private var userHasDecidedToComplete: Boolean = false //The user has decided that the task is complete even if the subtasks aren't
-  val completed: Boolean
+  var completed: Boolean = false
     get(){
 
     if (userHasDecidedToComplete) return todoCompleted

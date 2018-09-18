@@ -6,9 +6,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.example.josephmagara.todoapp.R
 import org.josephmagara.todo.android.activities.android.data.models.UserToDo
+import org.josephmagara.todo.android.activities.android.data.presenters.ToDoPresenter
 import org.josephmagara.todo.android.activities.android.ui.ViewHolders.ToDoViewHolder
 
-class ToDoAdapter(private val context: Context, private var list:ArrayList<UserToDo>) : Adapter<ToDoViewHolder>() {
+class ToDoAdapter(private val context: Context, private var list:ArrayList<UserToDo>, private val presenter: ToDoPresenter) : Adapter<ToDoViewHolder>() {
+
   override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ToDoViewHolder {
     return ToDoViewHolder(LayoutInflater.from(context).inflate(R.layout.to_do_view_holder, parent, false))
   }
@@ -19,7 +21,7 @@ class ToDoAdapter(private val context: Context, private var list:ArrayList<UserT
     holder.checkbox.isChecked = item.completed
     holder.dateTextView.text = item.getFormattedDateString()
 
-    holder.checkbox.setOnCheckedChangeListener { buttonView, isChecked ->  item.setUserHasDecidedToComplete(true)}
+    holder.checkbox.setOnCheckedChangeListener { _, _ ->  presenter.toggleComplete(item)}
   }
 
 

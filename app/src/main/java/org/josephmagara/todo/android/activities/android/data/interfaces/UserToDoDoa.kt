@@ -1,4 +1,4 @@
-package org.josephmagara.todo.android.activities.android.data.database.interfaces
+package org.josephmagara.todo.android.activities.android.data.interfaces
 
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Delete
