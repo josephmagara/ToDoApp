@@ -4,4 +4,5 @@ import org.josephmagara.todo.android.activities.android.data.models.UserToDo
 
 interface ToDoPresenterImpl {
   fun getAllToDos(): ArrayList<UserToDo>
+  fun inject(display: ListDisplayImpl)
 }
