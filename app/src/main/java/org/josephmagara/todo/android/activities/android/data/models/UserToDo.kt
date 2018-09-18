@@ -3,7 +3,6 @@ package org.josephmagara.todo.android.activities.android.data.models
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.persistence.room.Entity
-import android.text.format.DateUtils
 import java.util.Date
 
 @Entity(tableName = "user_to_do_table")
@@ -18,10 +17,10 @@ data class UserToDo(private var ignore: String) : ViewModel() {
   val completed: Boolean
     get(){
 
-    return todoCompleted
+    if (userHasDecidedToComplete) return todoCompleted
 
-      /*subtasks.let {
-        if (subtasks.value?.size == 0) return todoCompleted
+      subtasks.let {
+        if (subtasks.value?.size == 0 || subtasks.value == null) return todoCompleted
         for (task in subtasks.value!!){
           if (!task.completed){
             return false
@@ -29,7 +28,7 @@ data class UserToDo(private var ignore: String) : ViewModel() {
         }
       }
 
-    return todoCompleted*/
+    return todoCompleted
   }
 
   constructor(passedTitle: String, passedSubtasks: MutableLiveData<MutableList<SubTask>>, dateCreated: Date) : this("") {

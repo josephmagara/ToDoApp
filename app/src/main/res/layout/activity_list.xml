@@ -36,12 +36,21 @@
       android:layout_height="match_parent"
       android:layout_margin="@dimen/text_input_margin"
       >
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_input_margin"
+        android:elevation="10dp"
+        card_view:cardElevation="10dp"
+        card_view:cardPreventCornerOverlap="false"
+        >
     <android.support.v7.widget.RecyclerView
         android:id="@+id/toDoRecycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="@dimen/to_do_recycler_margin"
         />
+    </android.support.v7.widget.CardView>
   </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
