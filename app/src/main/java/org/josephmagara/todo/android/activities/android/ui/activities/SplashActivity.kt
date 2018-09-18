@@ -1,4 +1,4 @@
-package ui.activities
+package org.josephmagara.todo.android.activities.android.ui.activities
 
 import android.app.Activity
 import android.arch.lifecycle.Lifecycle.Event.ON_CREATE
@@ -22,7 +22,7 @@ class SplashActivity : Activity() {
     requestWindowFeature(Window.FEATURE_NO_TITLE)
     setContentView(layout.activity_splash)
     backgroundImageView.scaleType = FIT_XY
-    Observable.timer(5, SECONDS).observeOn(
+    Observable.timer(3, SECONDS).observeOn(
         Schedulers.io()).subscribe { goToListActivity() }
   }
 
