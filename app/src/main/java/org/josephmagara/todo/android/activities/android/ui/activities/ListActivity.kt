@@ -2,7 +2,6 @@ package org.josephmagara.todo.android.activities.android.ui.activities
 
 import android.arch.lifecycle.Lifecycle
 import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.OnLifecycleEvent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -14,11 +13,8 @@ import com.example.josephmagara.todoapp.R
 import kotlinx.android.synthetic.main.activity_list.textInput
 import kotlinx.android.synthetic.main.activity_list.toDoRecycler
 import org.josephmagara.todo.android.activities.android.data.interfaces.ListDisplayImpl
-import org.josephmagara.todo.android.activities.android.data.models.SubTask
-import org.josephmagara.todo.android.activities.android.data.models.UserToDo
 import org.josephmagara.todo.android.activities.android.data.presenters.ToDoPresenter
 import org.josephmagara.todo.android.activities.android.ui.adapters.ToDoAdapter
-import java.util.Date
 
 @Suppress("UNUSED_EXPRESSION")
 class ListActivity : AppCompatActivity(), LifecycleObserver, ListDisplayImpl {
@@ -31,7 +27,8 @@ class ListActivity : AppCompatActivity(), LifecycleObserver, ListDisplayImpl {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_list)
-    presenter = ToDoPresenter(this)
+    presenter = ToDoPresenter()
+    presenter?.inject(this)
     setupAdapter()
     bindView()
   }
@@ -61,15 +58,8 @@ class ListActivity : AppCompatActivity(), LifecycleObserver, ListDisplayImpl {
     textInput.setText("")
   }
 
-  private fun createToDo(title: String) {
-    val newSubtasks = MutableLiveData<MutableList<SubTask>>()
-    val newTodo = UserToDo(title,
-        newSubtasks, Date())
-    addToDo(newTodo)
-  }
-
-  private fun addToDo(td: UserToDo){
-    presenter?.addTodo(td)
+  private fun createToDo(string: String){
+    presenter?.createToDo(string)
   }
 
   override fun notifyAdapterOfDataChange() {

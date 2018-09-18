@@ -39,7 +39,6 @@ data class UserToDo(private var ignore: String) : ViewModel() {
 
   fun setUserHasDecidedToComplete(isComplete: Boolean){
     userHasDecidedToComplete = isComplete
-    setToDoCompleted(isComplete)
   }
 
   fun setToDoCompleted(isComplete: Boolean){
