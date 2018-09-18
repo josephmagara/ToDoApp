@@ -18,7 +18,6 @@ class ToDoPresenter : ToDoPresenterImpl {
   fun toggleComplete(item: UserToDo){
     val value = !item.completed
     item.setUserHasDecidedToComplete(value)
-    item.setToDoCompleted(value)
   }
 
   fun createToDo(title: String) {

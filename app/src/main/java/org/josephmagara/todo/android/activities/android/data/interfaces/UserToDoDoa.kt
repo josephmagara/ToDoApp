@@ -16,23 +16,20 @@ interface UserToDoDoa{
 
   companion object {
     private const val SELECT_ALL = "SELECT * FROM userToDo"
-    private const val SELECT_BY_ID = "SELECT * FROM userToDo WHERE id IN (:toDoIds)"
-    private const val SELECT_BY_NAME = "SELECT * FROM userToDo WHERE title LIKE :first LIMIT 1"
-    private const val SELECT_BY_TIME_PERIOD = "SELECT * FROM userToDo WHERE creationDate BETWEEN :from AND :to"
+    private const val SELECT_BY_NAME = "SELECT * FROM userToDo WHERE title LIKE :title LIMIT 1"
+    private const val SELECT_BY_TIME_PERIOD = "SELECT * FROM userToDo WHERE dateCreated BETWEEN :from AND :to"
 
   }
 
   @Query(SELECT_ALL)
   fun getAll(): List<UserToDo>
 
-  @Query(SELECT_BY_ID)
-  fun loadAllByIds(toDoIds: IntArray): List<UserToDo>
 
   @Query(SELECT_BY_NAME)
-  fun findByName(first: String, last: String): UserToDo
+  fun findByTitle(title: String):   UserToDo
 
   @Query(SELECT_BY_TIME_PERIOD)
-  fun findUsersBornBetweenDates(from: Date, to: Date): List<*>
+  fun findToDosCreatedBetween(from: Date, to: Date): List<UserToDo>
 
   @Insert
   fun insert(todo: UserToDo)

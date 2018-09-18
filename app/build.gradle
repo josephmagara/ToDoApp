@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-platform-android'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 android {
   compileSdkVersion 28
   defaultConfig {
@@ -21,6 +23,10 @@ android {
     sourceCompatibility JavaVersion.VERSION_1_8
     targetCompatibility JavaVersion.VERSION_1_8
   }
+}
+kapt {
+  generateStubs = true
+  mapDiagnosticLocations = true
 }
 
 dependencies {
@@ -50,9 +56,6 @@ dependencies {
   // ViewModel and LiveData
   implementation "android.arch.lifecycle:extensions:$lifecycle_version"
   kapt "android.arch.lifecycle:compiler:$lifecycle_version"
-
-  // alternately - if using Java8, use the following instead of compiler
-  implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
 
   // optional - ReactiveStreams support for LiveData
   implementation "android.arch.lifecycle:reactivestreams:$lifecycle_version"

@@ -1,8 +1,6 @@
 package org.josephmagara.todo.android.activities.android.ui.activities
 
 import android.app.Activity
-import android.arch.lifecycle.Lifecycle.Event.ON_CREATE
-import android.arch.lifecycle.OnLifecycleEvent
 import android.content.Intent
 import android.os.Bundle
 import android.view.Window
@@ -16,8 +14,7 @@ import java.util.concurrent.TimeUnit.SECONDS
 
 class SplashActivity : Activity() {
 
-  @OnLifecycleEvent(ON_CREATE)
-  override fun onCreate(savedInstanceState: Bundle?) {
+  override fun onCreate(savedInstanceState: Bundle) {
     super.onCreate(savedInstanceState)
     requestWindowFeature(Window.FEATURE_NO_TITLE)
     setContentView(layout.activity_splash)
