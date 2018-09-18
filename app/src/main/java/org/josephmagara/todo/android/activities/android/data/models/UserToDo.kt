@@ -2,26 +2,30 @@ package org.josephmagara.todo.android.activities.android.data.models
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Embedded
+import android.arch.persistence.room.PrimaryKey
 import java.util.Date
 
-@Entity(tableName = "user_to_do_table")
 data class UserToDo(private var ignore: String) : ViewModel() {
 
+  @PrimaryKey
+  private var dateCreated = Date()
+  private var dateDue = Date()
+  private var dateModified = Date()
+  @Embedded(prefix = "USR_")
+  private var subTasks: MutableLiveData<MutableList<SubTask>> = MutableLiveData()
 
   var title : String = ""
-  private var dateCreated: Date? = null
-  private var subtasks: MutableLiveData<MutableList<SubTask>> = MutableLiveData()
   private var todoCompleted: Boolean = false
-  private var userHasDecidedToComplete: Boolean = false //The user has decided that the task is complete even if the subtasks aren't
+  private var userHasDecidedToComplete: Boolean = false //The user has decided that the task is complete even if the subTasks aren't
   var completed: Boolean = false
     get(){
 
     if (userHasDecidedToComplete) return todoCompleted
 
-      subtasks.let {
-        if (subtasks.value?.size == 0 || subtasks.value == null) return todoCompleted
-        for (task in subtasks.value!!){
+      subTasks.let {
+        if (subTasks.value?.size == 0 || subTasks.value == null) return todoCompleted
+        for (task in subTasks.value!!){
           if (!task.completed){
             return false
           }
@@ -31,10 +35,11 @@ data class UserToDo(private var ignore: String) : ViewModel() {
     return todoCompleted
   }
 
-  constructor(passedTitle: String, passedSubtasks: MutableLiveData<MutableList<SubTask>>, dateCreated: Date) : this("") {
+  constructor(passedTitle: String, passedSubtasks: MutableLiveData<MutableList<SubTask>>, dateCreated: Date, dateDue: Date) : this("") {
     this.title = passedTitle
-    this.subtasks = passedSubtasks
+    this.subTasks = passedSubtasks
     this.dateCreated = dateCreated
+    this.dateDue = dateDue
   }
 
   fun setUserHasDecidedToComplete(isComplete: Boolean){

@@ -19,9 +19,9 @@ class ToDoPresenter : ToDoPresenterImpl {
   }
 
   fun createToDo(title: String) {
-    val newSubtasks = MutableLiveData<MutableList<SubTask>>()
+    val newSubTasks = MutableLiveData<MutableList<SubTask>>()
     val newTodo = UserToDo(title,
-        newSubtasks, Date())
+        newSubTasks, Date(), Date())
     addTodo(newTodo)
   }
 
