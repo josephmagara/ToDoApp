@@ -2,7 +2,7 @@ package org.josephmagara.todo.android.activities.android.data.interfaces
 
 import org.josephmagara.todo.android.activities.android.data.models.UserToDo
 
-interface ToDoPresenterImpl {
+interface ToDoPresenterImpl{
   fun getAllToDos(): ArrayList<UserToDo>
   fun inject(display: ListDisplayImpl)
 }
