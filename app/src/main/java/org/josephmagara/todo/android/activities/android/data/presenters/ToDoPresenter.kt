@@ -1,7 +1,6 @@
 package org.josephmagara.todo.android.activities.android.data.presenters
 
 import io.reactivex.Observable
-import io.reactivex.Observable.fromArray
 import io.reactivex.schedulers.Schedulers
 import org.josephmagara.todo.android.activities.android.data.database.DbManager
 import org.josephmagara.todo.android.activities.android.data.interfaces.ListDisplayImpl
@@ -29,8 +28,10 @@ class ToDoPresenter : ToDoPresenterImpl {
   }
 
   private fun addTodo(td: UserToDo) {
-    list.add(td)
-    dbManager?.saveUserToDo(td)
+    //list.add(td)
+    Observable.just(true)
+        .observeOn(Schedulers.computation())
+        .subscribe { dbManager?.saveUserToDo(td) }
     notifyDisplayOfDataChange()
   }
 
@@ -44,12 +45,15 @@ class ToDoPresenter : ToDoPresenterImpl {
   }
 
   private fun consolidateToDos() {
-    Observable<List<UserToDo>>().subscribeOn(Schedulers.computation())
-        .subscribeOn(Schedulers.computation())
-        .flatMap {  }
-        .subscribe { retrievedList ->
-          retrievedList?.let {
-            retrievedList.forEach {
+    //Kotlin
+    Observable.just(true)
+        .observeOn(Schedulers.computation())
+        .map { dbManager?.getAllUserToDo() }
+        .subscribeOn(Schedulers.newThread())
+        .observeOn(Schedulers.computation())
+        .subscribe {
+          it?.let {
+            it.forEach {
               list.add(it)
             }
           }
