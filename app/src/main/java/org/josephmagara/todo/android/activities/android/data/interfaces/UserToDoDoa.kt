@@ -15,9 +15,9 @@ import java.util.Date
 interface UserToDoDoa{
 
   companion object {
-    private const val SELECT_ALL = "SELECT * FROM userToDo"
-    private const val SELECT_BY_NAME = "SELECT * FROM userToDo WHERE title LIKE :title LIMIT 1"
-    private const val SELECT_BY_TIME_PERIOD = "SELECT * FROM userToDo WHERE dateCreated BETWEEN :from AND :to"
+    private const val SELECT_ALL = "SELECT * FROM user_to_do"
+    private const val SELECT_BY_NAME = "SELECT * FROM user_to_do WHERE title LIKE :title LIMIT 1"
+    private const val SELECT_BY_TIME_PERIOD = "SELECT * FROM user_to_do WHERE dateCreated BETWEEN :from AND :to"
 
   }
 
@@ -26,19 +26,16 @@ interface UserToDoDoa{
 
 
   @Query(SELECT_BY_NAME)
-  fun findByTitle(title: String):   UserToDo
+  fun findByTitle(title: String): UserToDo
 
   @Query(SELECT_BY_TIME_PERIOD)
   fun findToDosCreatedBetween(from: Date, to: Date): List<UserToDo>
 
   @Insert
-  fun insert(todo: UserToDo)
-
-  @Insert
-  fun insertAll(vararg todo: UserToDo)
+  fun insert(todo: UserToDo) : Long
 
   @Update
-  fun updateUsers(vararg todo: UserToDo)
+  fun updateUsers(vararg todo: UserToDo) : Int
 
   @Delete
   fun delete(user: UserToDo)
