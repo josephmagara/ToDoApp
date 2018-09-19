@@ -1,21 +1,33 @@
 package org.josephmagara.todo.android.activities.android.data.database
 
-import android.arch.persistence.room.Room
 import android.content.Context
 import org.josephmagara.todo.android.activities.android.data.database.db.AppDatabase
+import org.josephmagara.todo.android.activities.android.data.interfaces.UserToDoDoa
+import org.josephmagara.todo.android.activities.android.data.models.UserToDo
 
 
 class DbManager(private val context: Context){
 
-  companion object {
-    private const val dbName = "UserDefinedToDo"
-  }
-
   private fun getDB() : AppDatabase{
-    return Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, "").build()
+    return AppDatabase.getInstance(context, getDbName(context))
   }
 
-  fun getAllUserToDo(){
-
+  private fun getUserToDoDoa(): UserToDoDoa {
+    return getDB().userToDoDoa()
   }
+
+  fun getAllUserToDo(): List<UserToDo>{
+    val doa = getUserToDoDoa()
+    return doa.getAll()
+  }
+
+  fun saveUserToDo(userToDo: UserToDo){
+    val doa = getUserToDoDoa()
+    doa.insert(userToDo)
+  }
+
+  private fun getDbName(context: Context):String{
+    return context.applicationInfo.loadLabel(context.packageManager).toString()
+  }
+
 }

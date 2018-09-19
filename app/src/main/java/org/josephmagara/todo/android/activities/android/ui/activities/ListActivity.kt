@@ -1,8 +1,6 @@
 package org.josephmagara.todo.android.activities.android.ui.activities
 
-import android.arch.lifecycle.Lifecycle
-import android.arch.lifecycle.LifecycleObserver
-import android.arch.lifecycle.OnLifecycleEvent
+import android.content.Context
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -17,13 +15,11 @@ import org.josephmagara.todo.android.activities.android.data.presenters.ToDoPres
 import org.josephmagara.todo.android.activities.android.ui.adapters.ToDoAdapter
 
 @Suppress("UNUSED_EXPRESSION")
-class ListActivity : AppCompatActivity(), LifecycleObserver, ListDisplayImpl {
-
+class ListActivity : AppCompatActivity(), ListDisplayImpl {
 
   private var adapter: ToDoAdapter? = null
   private var presenter : ToDoPresenter? = null
 
-  @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_list)
@@ -64,5 +60,9 @@ class ListActivity : AppCompatActivity(), LifecycleObserver, ListDisplayImpl {
 
   override fun notifyAdapterOfDataChange() {
     adapter?.notifyDataSetChanged()
+  }
+
+  override fun getContext(): Context {
+    return this
   }
 }

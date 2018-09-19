@@ -1,48 +1,31 @@
 package org.josephmagara.todo.android.activities.android.data.models
 
-import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
+import android.arch.persistence.room.PrimaryKey
 import java.util.Date
 
-@Entity(tableName = "user_to_do_table")
-data class UserToDo(private var ignore: String) : ViewModel() {
+@Entity(tableName = "user_to_do")
+data class UserToDo(var title: String, @PrimaryKey var dateCreated: Date, var dateDue: Date,
+    var dateModified: Date) : ViewModel() {
 
-
-  var title : String = ""
-  private var dateCreated: Date? = null
-  private var subtasks: MutableLiveData<MutableList<SubTask>> = MutableLiveData()
-  private var todoCompleted: Boolean = false
-  private var userHasDecidedToComplete: Boolean = false //The user has decided that the task is complete even if the subtasks aren't
+  @Ignore
+  private var userHasDecidedToComplete: Boolean = false //The user has decided that the task is complete even if the subTasks aren't
   var completed: Boolean = false
     get(){
 
-    if (userHasDecidedToComplete) return todoCompleted
+    if (userHasDecidedToComplete) return true
 
-      subtasks.let {
-        if (subtasks.value?.size == 0 || subtasks.value == null) return todoCompleted
-        for (task in subtasks.value!!){
-          if (!task.completed){
-            return false
-          }
-        }
-      }
-
-    return todoCompleted
-  }
-
-  constructor(passedTitle: String, passedSubtasks: MutableLiveData<MutableList<SubTask>>, dateCreated: Date) : this("") {
-    this.title = passedTitle
-    this.subtasks = passedSubtasks
-    this.dateCreated = dateCreated
+    return userHasDecidedToComplete
   }
 
   fun setUserHasDecidedToComplete(isComplete: Boolean){
     userHasDecidedToComplete = isComplete
   }
 
-  fun setToDoCompleted(isComplete: Boolean){
-    todoCompleted = isComplete
+  fun getUserHasDecidedToComplete():Boolean{
+    return userHasDecidedToComplete
   }
 
   fun getFormattedDateString(): String{
