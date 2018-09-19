@@ -5,4 +5,4 @@ import android.arch.persistence.room.PrimaryKey
 import java.util.Date
 
 @Entity(tableName = "sub_tasks")
-data class SubTask(private var title: String, @PrimaryKey private var dateCreated: Date, private var dateDue: Date, var completed: Boolean)
+data class SubTask(var title: String, var parentUserToDoId: Int, @PrimaryKey var dateSubTaskCreated: Date, var dateDue: Date, var completed: Boolean)

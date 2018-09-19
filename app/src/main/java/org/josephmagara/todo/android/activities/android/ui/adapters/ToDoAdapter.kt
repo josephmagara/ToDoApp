@@ -9,7 +9,7 @@ import org.josephmagara.todo.android.activities.android.data.models.UserToDo
 import org.josephmagara.todo.android.activities.android.data.presenters.ToDoPresenter
 import org.josephmagara.todo.android.activities.android.ui.ViewHolders.ToDoViewHolder
 
-class ToDoAdapter(private val context: Context, private var list:ArrayList<UserToDo>, private val presenter: ToDoPresenter) : Adapter<ToDoViewHolder>() {
+class ToDoAdapter(private val context: Context, private var list: MutableList<UserToDo>, private val presenter: ToDoPresenter) : Adapter<ToDoViewHolder>() {
 
   override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ToDoViewHolder {
     return ToDoViewHolder(LayoutInflater.from(context).inflate(R.layout.to_do_view_holder, parent, false))

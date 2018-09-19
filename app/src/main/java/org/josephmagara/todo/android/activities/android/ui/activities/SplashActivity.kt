@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit.SECONDS
 
 class SplashActivity : Activity() {
 
-  override fun onCreate(savedInstanceState: Bundle) {
+  override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     requestWindowFeature(Window.FEATURE_NO_TITLE)
     setContentView(layout.activity_splash)

@@ -1,5 +1,8 @@
 package org.josephmagara.todo.android.activities.android.data.presenters
 
+import io.reactivex.Observable
+import io.reactivex.Observable.fromArray
+import io.reactivex.schedulers.Schedulers
 import org.josephmagara.todo.android.activities.android.data.database.DbManager
 import org.josephmagara.todo.android.activities.android.data.interfaces.ListDisplayImpl
 import org.josephmagara.todo.android.activities.android.data.interfaces.ToDoPresenterImpl
@@ -8,12 +11,12 @@ import java.util.Date
 
 class ToDoPresenter : ToDoPresenterImpl {
 
-  private var dbManager : DbManager? = null
+  private var dbManager: DbManager? = null
   private var display: ListDisplayImpl? = null
 
-  private var list: ArrayList<UserToDo> = arrayListOf()
+  private var list: MutableList<UserToDo> = arrayListOf()
 
-  fun toggleComplete(item: UserToDo){
+  fun toggleComplete(item: UserToDo) {
     val value = !item.completed
     item.setUserHasDecidedToComplete(value)
   }
@@ -21,7 +24,7 @@ class ToDoPresenter : ToDoPresenterImpl {
   fun createToDo(title: String) {
     val now = Date()
     val newTodo = UserToDo(title,
-        listOf(), now, now, now)
+        now, now, now)
     addTodo(newTodo)
   }
 
@@ -31,19 +34,26 @@ class ToDoPresenter : ToDoPresenterImpl {
     notifyDisplayOfDataChange()
   }
 
-  private fun notifyDisplayOfDataChange(){
+  private fun notifyDisplayOfDataChange() {
     display?.notifyAdapterOfDataChange()
   }
 
-  override fun getAllToDos(): ArrayList<UserToDo> {
+  override fun getAllToDos(): MutableList<UserToDo> {
     consolidateToDos()
     return list
   }
 
   private fun consolidateToDos() {
-    val savedToDos = dbManager?.getAllUserToDo()
-    savedToDos?.let { list.addAll(it) }
-    list = ArrayList(list.distinct())
+    Observable<List<UserToDo>>().subscribeOn(Schedulers.computation())
+        .subscribeOn(Schedulers.computation())
+        .flatMap {  }
+        .subscribe { retrievedList ->
+          retrievedList?.let {
+            retrievedList.forEach {
+              list.add(it)
+            }
+          }
+        }
   }
 
 

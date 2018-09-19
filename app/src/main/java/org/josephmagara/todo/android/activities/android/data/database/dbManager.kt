@@ -12,17 +12,17 @@ class DbManager(private val context: Context){
     return AppDatabase.getInstance(context, getDbName(context))
   }
 
-  private fun getDoa(): UserToDoDoa {
+  private fun getUserToDoDoa(): UserToDoDoa {
     return getDB().userToDoDoa()
   }
 
   fun getAllUserToDo(): List<UserToDo>{
-    val doa = getDoa()
+    val doa = getUserToDoDoa()
     return doa.getAll()
   }
 
   fun saveUserToDo(userToDo: UserToDo){
-    val doa = getDoa()
+    val doa = getUserToDoDoa()
     doa.insert(userToDo)
   }
 

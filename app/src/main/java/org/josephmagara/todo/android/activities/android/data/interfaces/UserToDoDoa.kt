@@ -8,9 +8,6 @@ import android.arch.persistence.room.Update
 import org.josephmagara.todo.android.activities.android.data.models.UserToDo
 import java.util.Date
 
-
-
-
 @Dao
 interface UserToDoDoa{
 
