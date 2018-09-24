@@ -2,17 +2,16 @@ package org.josephmagara.todo.android.activities.android.data.presenters
 
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
-import org.josephmagara.todo.android.activities.android.data.database.DbManager
 import org.josephmagara.todo.android.activities.android.data.interfaces.ListDisplayImpl
 import org.josephmagara.todo.android.activities.android.data.interfaces.ToDoPresenterImpl
 import org.josephmagara.todo.android.activities.android.data.models.UserToDo
+import org.josephmagara.todo.android.activities.android.data.repository.Repository
 import java.util.Date
 
 class ToDoPresenter : ToDoPresenterImpl {
 
-  private var dbManager: DbManager? = null
+  private var repository: Repository? = null
   private var display: ListDisplayImpl? = null
-
   private var list: MutableList<UserToDo> = arrayListOf()
 
   fun toggleComplete(item: UserToDo) {
@@ -31,7 +30,7 @@ class ToDoPresenter : ToDoPresenterImpl {
     //list.add(td)
     Observable.just(true)
         .observeOn(Schedulers.computation())
-        .subscribe { dbManager?.saveUserToDo(td) }
+        .subscribe { repository?.saveUserToDo(td) }
     notifyDisplayOfDataChange()
   }
 
@@ -48,7 +47,7 @@ class ToDoPresenter : ToDoPresenterImpl {
     //Kotlin
     Observable.just(true)
         .observeOn(Schedulers.computation())
-        .map { dbManager?.getAllUserToDo() }
+        .map { repository?.getAllUserToDo() }
         .subscribeOn(Schedulers.newThread())
         .observeOn(Schedulers.computation())
         .subscribe {
@@ -63,6 +62,6 @@ class ToDoPresenter : ToDoPresenterImpl {
 
   override fun inject(display: ListDisplayImpl) {
     this.display = display
-    dbManager = DbManager(display.getContext())
+    this.repository = Repository()
   }
 }

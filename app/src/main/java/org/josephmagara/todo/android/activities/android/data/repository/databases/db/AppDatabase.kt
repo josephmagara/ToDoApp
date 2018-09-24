@@ -1,4 +1,4 @@
-package org.josephmagara.todo.android.activities.android.data.database.db
+package org.josephmagara.todo.android.activities.android.data.repository.databases.db
 
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
@@ -23,8 +23,12 @@ abstract class AppDatabase : RoomDatabase() {
     @Volatile private var INSTANCE: AppDatabase? = null
 
     fun getInstance(context: Context, dbName: String): AppDatabase =
-        INSTANCE ?: synchronized(this) {
-          INSTANCE ?: buildDatabase(context, dbName).also { INSTANCE = it }
+        INSTANCE
+            ?: synchronized(this) {
+          INSTANCE
+              ?: buildDatabase(
+                  context,
+                  dbName).also { INSTANCE = it }
         }
 
     private fun buildDatabase(context: Context, dbName: String) =

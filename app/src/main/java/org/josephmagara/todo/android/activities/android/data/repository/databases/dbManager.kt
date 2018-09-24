@@ -1,9 +1,9 @@
-package org.josephmagara.todo.android.activities.android.data.database
+package org.josephmagara.todo.android.activities.android.data.repository.databases
 
 import android.content.Context
-import org.josephmagara.todo.android.activities.android.data.database.db.AppDatabase
 import org.josephmagara.todo.android.activities.android.data.interfaces.UserToDoDoa
 import org.josephmagara.todo.android.activities.android.data.models.UserToDo
+import org.josephmagara.todo.android.activities.android.data.repository.databases.db.AppDatabase
 
 
 class DbManager(private val context: Context){
